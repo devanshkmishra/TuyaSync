@@ -6,7 +6,7 @@ Spotify desktop metadata and drives the light over the local network.
 
 The app is intentionally local. After a light profile has been created,
 TuyaSync talks directly to the light with TinyTuya; it does not use Tuya cloud
-control, OAuth, Spotify Web API credentials, or a paid service at runtime.
+control, OAuth, or a paid service at runtime.
 
 ## Download and install
 
@@ -78,7 +78,19 @@ private VPN.
 - **Cross-platform packaging** — native macOS app and Windows executable built
   separately for each operating system.
 
-![TuyaSync main window](docs/screenshots/main-window.png)
+### Screen mode
+
+![TuyaSync Screen mode](docs/screenshots/screen-mode.png)
+
+### Music mode
+
+![TuyaSync Music mode](docs/screenshots/music-mode.png)
+
+### Album Art mode
+
+![TuyaSync Album Art mode](docs/screenshots/album-art-mode.png)
+
+### First-run setup
 
 ![TuyaSync first-run setup guide](docs/screenshots/setup-guide.png)
 
