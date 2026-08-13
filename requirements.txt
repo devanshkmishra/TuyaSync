@@ -1,0 +1,12 @@
+tinytuya>=1.2.0
+Pillow>=8.0.0
+numpy>=1.23
+#tkinter  # This is usually included with Python's standard library
+mss
+platformdirs
+pystray>=0.19.5
+pyobjc-framework-ScreenCaptureKit; sys_platform == "darwin"
+pyobjc-framework-CoreMedia; sys_platform == "darwin"
+soundcard; sys_platform == "win32"
+winrt-Windows.Media.Control; sys_platform == "win32"
+winrt-Windows.Storage.Streams; sys_platform == "win32"

@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+.DS_Store
+config.ini
+screensync/config.ini
+build/
+dist/

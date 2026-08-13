@@ -1,0 +1,15 @@
+[General]
+saturation_factor = 1.5
+
+[TuyaSettings]
+update_frequency = 50
+
+# Tuya sections contain metadata only. The complete profile, including the
+# Local Key, is stored in light-profiles.json.
+[BulbTuya1]
+profile_id = tuya-<sha256-device-id-prefix>
+name = Living room
+device_id = <tuya-device-id>
+ip_address =
+protocol = 3.5
+placement = center

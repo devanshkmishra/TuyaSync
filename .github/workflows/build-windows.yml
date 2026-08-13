@@ -1,0 +1,36 @@
+name: Build Windows release asset
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - name: Check out TuyaSync
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip && python -m pip install -r requirements.txt pyinstaller
+
+      - name: Build TuyaSync.exe
+        run: python -m PyInstaller --clean --noconfirm screensync.spec
+
+      - name: Package Windows asset
+        shell: pwsh
+        run: Compress-Archive -Path dist/TuyaSync.exe -DestinationPath dist/TuyaSync-windows.zip
+
+      - name: Upload Windows asset
+        uses: actions/upload-artifact@v4
+        with:
+          name: TuyaSync-windows
+          path: dist/TuyaSync-windows.zip
+          if-no-files-found: error
