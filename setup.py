@@ -18,7 +18,7 @@ setup(
         'numpy>=1.23',
         'mss',
         'platformdirs',
-        'pystray>=0.19.5',
+        'PySide6>=6.6',
         'pyobjc-framework-ScreenCaptureKit; sys_platform == "darwin"',
         'pyobjc-framework-CoreMedia; sys_platform == "darwin"',
         'soundcard; sys_platform == "win32"',
@@ -36,8 +36,8 @@ setup(
     ],
     python_requires='>=3.10',
     entry_points={  # Optional
-        'console_scripts': [
-            'tuyasync=screensync.ui:main',
+        'gui_scripts': [
+            'tuyasync=screensync.gui.app:main',
         ],
     },
 )

@@ -44,8 +44,8 @@ light when the router assigns it a different address.
 
 ## Moving a light to another computer
 
-The profile belongs to the physical light, not to the computer. In **Light
-profiles**, choose **Export**, copy the visible `.tuyasync-profile.json` file to
+The profile belongs to the physical light, not to the computer. In **Settings →
+Light**, choose **Export**, copy the visible `.tuyasync-profile.json` file to
 the other computer, then choose **Import** there. This avoids repeating the
 Tuya developer-console setup for the same light.
 
@@ -67,14 +67,17 @@ private VPN.
   sign in to Spotify's Web API.
 - **Scenes** — sends hardware-executed scene payloads to the light, including
   built-in and custom scenes.
-- **Manual controls** — power, color, white temperature, brightness, and
-  scene controls remain available independently of automatic modes.
-- **Exclusive mode ownership** — only one of `Off`, `Screen`, `Music`, `Album
-  Art`, or `Scenes` can control the light automatically at a time.
+- **Manual** — power, color, white temperature, and brightness, available
+  whenever no automatic mode is running.
+- **Exclusive mode ownership** — only one of `Screen`, `Music`, `Album Art`, or
+  `Scenes` can control the light automatically at a time. The sidebar marks the
+  one that is live; browsing a mode's settings never starts it.
 - **Resilient LAN control** — persistent TinyTuya connection, serialized
   latest-value-wins output, reconnect/backoff, and automatic IP rediscovery.
-- **Menu bar / system tray** — quick mode and power controls while the settings
-  window is hidden.
+- **Menu bar / system tray** — switch modes and power the light while the
+  window is closed. Closing the window keeps TuyaSync running there.
+- **Interface** — a native Qt (PySide6) app that follows the system's light or
+  dark appearance. Every change applies live and is saved automatically.
 - **Cross-platform packaging** — native macOS app and Windows executable built
   separately for each operating system.
 
@@ -90,6 +93,10 @@ private VPN.
 
 ![TuyaSync Album Art mode](docs/screenshots/album-art-mode.png)
 
+### Scenes
+
+![TuyaSync Scenes](docs/screenshots/scenes-mode.png)
+
 ### First-run setup
 
 ![TuyaSync first-run setup guide](docs/screenshots/setup-guide.png)
@@ -97,9 +104,8 @@ private VPN.
 ## Build from source
 
 The physically tested development environment is Apple Silicon macOS. Windows
-packaging is performed by the repository's GitHub Actions workflow; Windows
-audio and media-session behavior still needs physical testing on a Windows
-machine.
+packaging is performed by the repository's GitHub Actions workflow, and Windows
+system-audio capture has been confirmed on a physical Windows machine.
 
 ```text
 python -m venv .venv
@@ -121,7 +127,7 @@ A macOS build cannot be used as a Windows build.
 
 ```text
 PYTHONPATH=. python -m unittest \
-  screensync.tests.test_ui_swatches \
+  screensync.tests.test_gui \
   screensync.tests.test_tuya_resilience \
   screensync.tests.test_light_profiles \
   screensync.tests.test_scenes \
