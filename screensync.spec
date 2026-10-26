@@ -13,6 +13,25 @@ asset_files = (
     "TuyaSync.icns",
 )
 platform_hiddenimports = []
+# The interface only uses QtCore, QtGui, and QtWidgets. Leaving out the rest of
+# Qt keeps the bundle tens of megabytes smaller.
+qt_excludes = [
+    "tkinter",
+    *(
+        f"PySide6.{module}"
+        for module in (
+            "Qt3DAnimation", "Qt3DCore", "Qt3DExtras", "Qt3DInput", "Qt3DLogic", "Qt3DRender",
+            "QtBluetooth", "QtCharts", "QtDataVisualization", "QtDesigner", "QtGraphs",
+            "QtHelp", "QtLocation", "QtMultimedia", "QtMultimediaWidgets", "QtNetworkAuth",
+            "QtNfc", "QtOpenGL", "QtOpenGLWidgets", "QtPdf", "QtPdfWidgets", "QtPositioning",
+            "QtQml", "QtQuick", "QtQuick3D", "QtQuickControls2", "QtQuickWidgets",
+            "QtRemoteObjects", "QtScxml", "QtSensors", "QtSerialBus", "QtSerialPort",
+            "QtSpatialAudio", "QtSql", "QtStateMachine", "QtSvgWidgets", "QtTest",
+            "QtTextToSpeech", "QtUiTools", "QtWebChannel", "QtWebEngineCore",
+            "QtWebEngineQuick", "QtWebEngineWidgets", "QtWebSockets", "QtXml",
+        )
+    ),
+]
 if sys.platform == "win32":
     platform_hiddenimports.extend(
         (
@@ -34,7 +53,7 @@ a = Analysis(
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
-    excludes=[],
+    excludes=qt_excludes,
     win_no_prefer_redirects=False,
     win_private_assemblies=False,
     noarchive=False,
@@ -89,7 +108,8 @@ else:
         bootloader_ignore_signals=False,
         strip=False,
         upx=True,
-        upx_exclude=[],
+        # Compressing Qt's DLLs with UPX can corrupt them.
+        upx_exclude=["Qt6*.dll", "qwindows.dll", "PySide6*.pyd", "shiboken6*.pyd", "shiboken6*.dll"],
         runtime_tmpdir=None,
         console=False,
         disable_windowed_traceback=False,
