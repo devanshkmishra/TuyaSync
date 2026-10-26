@@ -18,6 +18,7 @@ setup(
         'numpy>=1.23',
         'mss',
         'platformdirs',
+        'segno>=1.5',
         'pystray>=0.19.5',
         'pyobjc-framework-ScreenCaptureKit; sys_platform == "darwin"',
         'pyobjc-framework-CoreMedia; sys_platform == "darwin"',

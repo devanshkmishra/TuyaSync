@@ -15,6 +15,7 @@ from PIL import Image, ImageTk
 
 from screensync.audio.factory import system_audio_backend
 from screensync.light_profiles import LightProfile, LightProfileStore, ProfileStoreError
+from screensync.phone_share import qr_png_base64, share_payload
 from screensync.light_service import LightService
 from screensync.modes.album_art import AlbumArtMode, AlbumArtSettings
 from screensync.modes.manager import ModeManager, ModeTransitionError
@@ -1283,6 +1284,7 @@ class TuyaSyncApp:
         self._button(buttons, "Add light…", self.open_profile_editor, "primary").pack(side="left")
         self._button(buttons, "Import…", self.import_light_profile).pack(side="left", padx=(7, 0))
         self._button(buttons, "Export…", self.export_light_profile).pack(side="left", padx=(7, 0))
+        self._button(buttons, "Share to phone…", self.open_phone_share).pack(side="left", padx=(7, 0))
         self._button(buttons, "Remove", self.remove_light_profile, "stop").pack(side="right")
 
         def close():
@@ -1398,6 +1400,31 @@ class TuyaSyncApp:
             messagebox.showerror("Could not export light", str(error), parent=self.root)
             return
         messagebox.showinfo("Light exported", "The plain profile file is ready to copy to the other computer. Keep it private because it contains the Local Key.", parent=self.root)
+
+    def open_phone_share(self):
+        profile = self._selected_profile()
+        if profile is None:
+            messagebox.showinfo("Share to phone", "Add or import a light profile first.", parent=self.root)
+            return
+        try:
+            image = tk.PhotoImage(data=qr_png_base64(share_payload(profile), scale=6))
+        except Exception as error:
+            messagebox.showerror("Could not make the QR code", str(error), parent=self.root)
+            return
+        window = tk.Toplevel(self.root)
+        self._window_base(
+            window,
+            "Share to phone",
+            f"Scan this with the TuyaSync Android app to add {profile.name}. It contains the Local Key, so close it once scanned.",
+            520,
+            560,
+        )
+        card = self._card(window)
+        card.pack(fill="both", expand=True, padx=22, pady=(2, 22))
+        label = tk.Label(card, image=image, bg="white")
+        label.image = image
+        label.pack(padx=16, pady=16)
+        self._button(card, "Done", window.destroy, "primary").pack(pady=(0, 16))
 
     def remove_light_profile(self):
         profile = self._selected_profile()

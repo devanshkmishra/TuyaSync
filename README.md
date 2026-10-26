@@ -56,6 +56,13 @@ The file does not make the light controllable from anywhere on the internet;
 the computer still needs local-network reachability, such as the same LAN or a
 private VPN.
 
+## Controlling the light from an Android phone
+
+The [Android app](android/README.md) replaces Smart Life for this light over the
+home Wi-Fi. In **Light profiles**, choose **Share to phone** and scan the QR code
+with the app (or run `python -m screensync.phone_share` to print the code in a
+terminal). The QR code contains the Local Key, so close it once scanned.
+
 ## Features
 
 - **Screen** — ambient color from the selected display, with saturated color
